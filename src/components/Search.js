@@ -1,32 +1,29 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import classNames from 'classnames';
 import Input from 'material-ui/Input';
 
 const styles = theme => ({
-  toolbar: theme.mixins.toolbar,
   searchInputWrap: {
+    ...theme.mixins.toolbar,
     padding: `0 ${theme.spacing.unit * 3}px`,
     display: `flex`,
     alignItems: `center`,
   },
-  input: {
+  searchInput: {
     width: `100%`,
   },
 });
 
-const Search = ({ classes }) => {
-  return (
-    <div className={classNames(classes.toolbar, classes.searchInputWrap)}>
-      <Input
-        placeholder="Search chats..."
-        className={classes.input}
-        inputProps={{
-          'aria-label': 'Description',
-        }}
-      />
-    </div>
-  );
-};
+const Search = ({ classes }) => (
+  <div className={classes.searchInputWrap}>
+    <Input
+      placeholder="Search chats..."
+      className={classes.searchInput}
+      inputProps={{
+        'aria-label': 'Description',
+      }}
+    />
+  </div>
+);
 
 export default withStyles(styles)(Search);

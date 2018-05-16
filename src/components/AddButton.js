@@ -4,24 +4,22 @@ import Button from 'material-ui/Button';
 import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
-  button: {
+  addButton: {
     position: 'absolute',
     bottom: theme.spacing.unit * 3 + 48,
     right: theme.spacing.unit * 3,
   },
 });
 
-const PermanentDrawer = ({ classes }) => {
-  return (
-    <Button
-      variant="fab"
-      color="primary"
-      aria-label="add"
-      className={classes.button}
-    >
-      <AddIcon />
-    </Button>
-  );
-};
+const AddButton = ({ classes }) => (
+  <Button
+    variant="fab"
+    color="primary"
+    aria-label="add"
+    className={classes.addButton}
+  >
+    <AddIcon />
+  </Button>
+);
 
-export default withStyles(styles)(PermanentDrawer);
+export default withStyles(styles)(AddButton);

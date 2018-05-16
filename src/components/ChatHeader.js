@@ -6,7 +6,7 @@ import MoreVert from '@material-ui/icons/MoreVert';
 import Typography from 'material-ui/Typography';
 import MenuButton from './MenuButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import UserAvatar from './UserAvatar';
+import Avatar from './Avatar';
 
 const styles = theme => ({
   appBar: {
@@ -18,26 +18,24 @@ const styles = theme => ({
   },
 });
 
-const ChatHeader = ({ classes }) => {
-  return (
-    <AppBar position="absolute" className={classes.appBar}>
-      <Toolbar>
-        <UserAvatar name="H" />
-        <Typography
-          className={classes.title}
-          variant="title"
-          color="inherit"
-          noWrap
-        >
-          DogeCodes React Chat
-          <MenuButton icon={<MoreVert />} menuList={[{ menuItem: 'Leave' }]} />
-        </Typography>
-        <MenuButton
-          icon={<AccountCircle />}
-          menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
-        />
-      </Toolbar>
-    </AppBar>
-  );
-};
+const ChatHeader = ({ classes }) => (
+  <AppBar position="absolute" className={classes.appBar}>
+    <Toolbar>
+      <Avatar name="H" />
+      <Typography
+        className={classes.title}
+        variant="title"
+        color="inherit"
+        noWrap
+      >
+        DogeCodes React Chat
+        <MenuButton icon={<MoreVert />} menuList={[{ menuItem: 'Leave' }]} />
+      </Typography>
+      <MenuButton
+        icon={<AccountCircle />}
+        menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
+      />
+    </Toolbar>
+  </AppBar>
+);
 export default withStyles(styles)(ChatHeader);

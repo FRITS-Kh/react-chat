@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-const PermanentDrawer = ({ classes }) => {
+const App = ({ classes }) => {
   return (
     <div className={classes.root}>
       <ChatHeader />
@@ -28,4 +28,4 @@ const PermanentDrawer = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(PermanentDrawer);
+export default withStyles(styles)(App);
