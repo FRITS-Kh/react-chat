@@ -34,6 +34,20 @@ class LoginForm extends React.Component {
     event.preventDefault();
     const { username, password } = this.state;
     console.log('Login: ', username.value, password.value);
+    fetch('http://localhost:8000/v1/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(reason => console.error(reason));
   };
   render() {
     const { classes } = this.props;
