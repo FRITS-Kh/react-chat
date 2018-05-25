@@ -30,7 +30,7 @@ class WelcomePageContent extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, signup, login } = this.props;
     const { currentTab } = this.state;
 
     return (
@@ -48,8 +48,8 @@ class WelcomePageContent extends React.Component {
           </Tabs>
         </AppBar>
         <div className={classes.tabContent}>
-          {currentTab === 0 && <LoginForm />}
-          {currentTab === 1 && <CreateUserForm />}
+          {currentTab === 0 && <LoginForm onSubmit={login} />}
+          {currentTab === 1 && <CreateUserForm onSubmit={signup} />}
         </div>
       </Paper>
     );

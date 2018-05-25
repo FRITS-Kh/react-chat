@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -52,27 +51,9 @@ class CreateUserForm extends React.Component {
     if (!this.validate()) {
       return;
     }
-    const { username, password, repeatedPassword } = this.state;
-    console.log(
-      'Create Login: ',
-      username.value,
-      password.value,
-      repeatedPassword.value,
-    );
-    fetch('http://localhost:8000/v1/signup', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-      }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json => console.log(json))
-      .catch(reason => console.error(reason));
+    const { username, password } = this.state;
+
+    this.props.onSubmit(username.value, password.value);
   };
   render() {
     const { classes } = this.props;
