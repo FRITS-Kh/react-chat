@@ -26,6 +26,7 @@ const Header = ({
   profileMenu,
   titleMenu,
   leftBar,
+  logoutBtn,
 }) => (
   <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
@@ -44,7 +45,10 @@ const Header = ({
       {profileMenu && (
         <MenuButton
           icon={<AccountCircle />}
-          menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
+          menuList={[
+            { menuItem: 'Edit Profile' },
+            { menuItem: 'Logout', action: logoutBtn },
+          ]}
         />
       )}
     </Toolbar>

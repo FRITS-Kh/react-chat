@@ -42,7 +42,10 @@ class MenuButton extends React.Component {
           onClose={this.handleClose}
         >
           {menuList.map(menuItem => (
-            <MenuItem key={menuItem.menuItem} onClick={this.handleClose}>
+            <MenuItem
+              key={menuItem.menuItem}
+              onClick={menuItem.action ? menuItem.action : this.handleClose}
+            >
               {menuItem.menuItem}
             </MenuItem>
           ))}

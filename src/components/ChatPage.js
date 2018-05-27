@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import { Redirect } from 'react-router-dom';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -21,10 +20,7 @@ const styles = theme => ({
 
 class ChatPage extends React.Component {
   render() {
-    const { classes, isAuthenticated } = this.props;
-    if (!isAuthenticated) {
-      return <Redirect to="/welcome" />;
-    }
+    const { classes, logout } = this.props;
     return (
       <div className={classes.root}>
         <Header
@@ -34,6 +30,7 @@ class ChatPage extends React.Component {
           titleMenu={true}
           profileMenu={true}
           leftBar={true}
+          logoutBtn={logout}
         />
         <Sidebar chats={chats} />
         <Chat messages={messages} />
