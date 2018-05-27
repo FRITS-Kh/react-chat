@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import ChatPage from '../components/ChatPage';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
 const mapDispatchToProps = dispatch => ({});
 
