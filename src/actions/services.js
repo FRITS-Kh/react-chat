@@ -1,4 +1,4 @@
-import * as types from '../constants';
+import * as types from '../constants/services';
 import history from '../utils/history';
 
 export function redirect(to) {
