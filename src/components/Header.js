@@ -18,24 +18,36 @@ const styles = theme => ({
   },
 });
 
-const ChatHeader = ({ classes }) => (
-  <AppBar position="absolute" className={classes.appBar}>
+const Header = ({
+  classes,
+  position,
+  title,
+  avatarName,
+  profileMenu,
+  titleMenu,
+  leftBar,
+}) => (
+  <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
-      <Avatar name="H" />
+      {avatarName && <Avatar name={avatarName} />}
       <Typography
-        className={classes.title}
+        className={leftBar && classes.title}
         variant="title"
         color="inherit"
         noWrap
       >
-        DogeCodes React Chat
-        <MenuButton icon={<MoreVert />} menuList={[{ menuItem: 'Leave' }]} />
+        {title}
+        {titleMenu && (
+          <MenuButton icon={<MoreVert />} menuList={[{ menuItem: 'Leave' }]} />
+        )}
       </Typography>
-      <MenuButton
-        icon={<AccountCircle />}
-        menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
-      />
+      {profileMenu && (
+        <MenuButton
+          icon={<AccountCircle />}
+          menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
+        />
+      )}
     </Toolbar>
   </AppBar>
 );
-export default withStyles(styles)(ChatHeader);
+export default withStyles(styles)(Header);
