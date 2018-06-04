@@ -61,12 +61,13 @@ export function fetchChat(chatId) {
 
         return data;
       })
-      .catch(reason =>
+      .catch(reason => {
         dispatch({
           type: types.FETCH_CHAT_FAILURE,
           payload: reason,
-        }),
-      );
+        });
+        dispatch(redirect('/chat'));
+      });
   };
 }
 
@@ -74,7 +75,7 @@ export function setActiveChat(chatId) {
   return dispatch => {
     return dispatch(fetchChat(chatId)).then(data => {
       if (!data) {
-        dispatchEvent(redirect('/chat'));
+        dispatch(redirect('/chat'));
 
         return dispatch({
           type: types.UNSET_ACTIVE_CHAT,
@@ -89,35 +90,141 @@ export function setActiveChat(chatId) {
   };
 }
 
-export function joinChat() {
-  return dispatch => {
-    // ...
+export function joinChat(chatId) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    dispatch({
+      type: types.JOIN_CHAT_REQUEST,
+      payload: { chatId },
+    });
+    return callApi(`/chats/${chatId}/join`, token)
+      .then(({ chat }) => {
+        dispatch({
+          type: types.JOIN_CHAT_SUCCESS,
+          payload: { chat },
+        });
+        dispatch(redirect(`/chat/${chat._id}`));
+        return chat;
+      })
+      .catch(reason =>
+        dispatch({
+          type: types.JOIN_CHAT_FAILURE,
+          payload: reason,
+        }),
+      );
   };
 }
-export function leaveChat() {
-  return dispatch => {
-    // ...
+export function leaveChat(chatId) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    dispatch({
+      type: types.LEAVE_CHAT_REQUEST,
+      payload: { chatId },
+    });
+    return callApi(`/chats/${chatId}/leave`, token)
+      .then(data => {
+        dispatch({
+          type: types.LEAVE_CHAT_SUCCESS,
+          payload: data,
+        });
+
+        dispatch(redirect('/chat'));
+
+        dispatch({
+          type: types.UNSET_ACTIVE_CHAT,
+        });
+        return data;
+      })
+      .catch(reason =>
+        dispatch({
+          type: types.LEAVE_CHAT_FAILURE,
+          payload: reason,
+        }),
+      );
   };
 }
-export function createChat() {
-  return dispatch => {
-    // ...
+export function createChat(title) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    dispatch({
+      type: types.CREATE_CHAT_REQUEST,
+      payload: { title },
+    });
+    return callApi('/chats', token, { method: 'POST' }, { data: { title } })
+      .then(({ chat }) => {
+        dispatch({
+          type: types.CREATE_CHAT_SUCCESS,
+          payload: { chat },
+        });
+        dispatch(redirect(`/chat/${chat._id}`));
+        return chat;
+      })
+      .catch(reason =>
+        dispatch({
+          type: types.CREATE_CHAT_FAILURE,
+          payload: reason,
+        }),
+      );
   };
 }
-export function deleteChat() {
-  return dispatch => {
-    // ...
+export function deleteChat(chatId) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    dispatch({
+      type: types.DELETE_CHAT_REQUEST,
+      payload: { chatId },
+    });
+    return callApi(`/chats/${chatId}`, token, { method: 'DELETE' })
+      .then(data => {
+        dispatch({
+          type: types.DELETE_CHAT_SUCCESS,
+          payload: data,
+        });
+        dispatch(redirect('/chat'));
+        dispatch({
+          type: types.UNSET_ACTIVE_CHAT,
+        });
+        return data;
+      })
+      .catch(reason =>
+        dispatch({
+          type: types.DELETE_CHAT_FAILURE,
+          payload: reason,
+        }),
+      );
   };
 }
 
-export function sendMessage() {
-  return dispatch => {
-    // ...
-  };
-}
+export function sendMessage(chatId, content) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
 
-export function editUser() {
-  return dispatch => {
-    // ...
+    dispatch({
+      type: types.SEND_MESSAGE_REQUEST,
+      payload: { chatId, content },
+    });
+    return callApi(
+      `/chats/${chatId}`,
+      token,
+      { method: 'POST' },
+      { data: { content } },
+    )
+      .then(data => {
+        dispatch({
+          type: types.SEND_MESSAGE_SUCCESS,
+          payload: data,
+        });
+        dispatch(fetchChat(chatId));
+      })
+      .catch(reason =>
+        dispatch({
+          type: types.SEND_MESSAGE_FAILURE,
+          payload: reason,
+        }),
+      );
   };
 }

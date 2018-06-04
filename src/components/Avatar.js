@@ -1,10 +1,13 @@
 import React from 'react';
-import MUIAvatar from 'material-ui/Avatar';
+import MUIAvatar from '@material-ui/core/Avatar';
 import titleInitials from '../utils/title-initials';
 import getColor from '../utils/color-from';
 
-const Avatar = ({ name }) => (
-  <MUIAvatar style={{ backgroundColor: getColor(name) }}>
+const Avatar = ({ name, colorFrom, rest }) => (
+  <MUIAvatar
+    style={{ backgroundColor: getColor(colorFrom ? colorFrom : name) }}
+    {...rest}
+  >
     {titleInitials(name)}
   </MUIAvatar>
 );

@@ -72,7 +72,7 @@ export function logout() {
     dispatch({
       type: types.LOGOUT_REQUEST,
     });
-    return callApi('/logout', undefined)
+    return callApi('/logout')
       .then(json => {
         // Remove JWT from localStorage
         localStorage.removeItem('token');
@@ -94,11 +94,9 @@ export function logout() {
 export function receiveAuth() {
   return (dispatch, getState) => {
     const { token } = getState().auth;
-    if (!token) {
-      dispatch({
-        type: types.RECEIVE_AUTH_FAILURE,
-      });
-    }
+    dispatch({
+      type: types.RECEIVE_AUTH_REQUEST,
+    });
 
     return callApi('/users/me', token)
       .then(json =>

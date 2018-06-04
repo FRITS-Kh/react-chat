@@ -1,6 +1,6 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Input from 'material-ui/Input';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   searchInputWrap: {
@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 });
 
-const Search = ({ classes }) => (
+const Search = ({ classes, searchAction }) => (
   <div className={classes.searchInputWrap}>
     <Input
       placeholder="Search chats..."
@@ -22,6 +22,7 @@ const Search = ({ classes }) => (
       inputProps={{
         'aria-label': 'Description',
       }}
+      onChange={searchAction}
     />
   </div>
 );
