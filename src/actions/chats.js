@@ -105,6 +105,7 @@ export function joinChat(chatId) {
           payload: { chat },
         });
         dispatch(redirect(`/chat/${chat._id}`));
+        dispatch(fetchChat(chatId));
         return chat;
       })
       .catch(reason =>
