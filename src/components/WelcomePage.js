@@ -1,7 +1,7 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import Paper from 'material-ui/Paper';
+import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -38,6 +38,10 @@ class WelcomePage extends React.Component {
     currentTab: 0,
   };
 
+  componentDidMount() {
+    this.props.receiveAuth();
+  }
+
   handleChange = (event, currentTab) => {
     this.setState({ currentTab });
   };
@@ -51,7 +55,11 @@ class WelcomePage extends React.Component {
     return (
       <div className={classes.welcomePageWrap}>
         <div className={classes.welcomePage}>
-          <Header position="static" title="DogeCodes React Chat" />
+          <Header
+            position="static"
+            title="DogeCodes React Chat"
+            activeUser={false}
+          />
           <Paper className={classes.welcomeContent}>
             <AppBar position="static" color="default">
               <Tabs

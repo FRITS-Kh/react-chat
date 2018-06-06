@@ -1,12 +1,12 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import MoreVert from '@material-ui/icons/MoreVert';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import MenuButton from './MenuButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from './Avatar';
+import UserMenu from './UserMenu';
 
 const styles = theme => ({
   appBar: {
@@ -22,29 +22,49 @@ const Header = ({
   classes,
   position,
   title,
-  avatarName,
-  profileMenu,
-  titleMenu,
   leftBar,
+  logoutBtn,
+  activeUser,
+  activeChat,
+  leaveChat,
+  deleteChat,
+  editUser,
 }) => (
   <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
-      {avatarName && <Avatar name={avatarName} />}
+      {activeChat && (
+        <Avatar name={activeChat.title} colorFrom={activeChat._id} />
+      )}
       <Typography
         className={leftBar && classes.title}
         variant="title"
         color="inherit"
         noWrap
       >
-        {title}
-        {titleMenu && (
-          <MenuButton icon={<MoreVert />} menuList={[{ menuItem: 'Leave' }]} />
+        {activeChat ? activeChat.title : title}
+        {activeUser.isChatMember && (
+          <MenuButton
+            icon={<MoreVert />}
+            menuList={[
+              activeUser.isMember && {
+                id: activeChat._id,
+                menuItem: 'Leave',
+                action: () => leaveChat(activeChat._id),
+              },
+              activeUser.isCreator && {
+                id: activeChat._id,
+                menuItem: 'Delete',
+                action: () => deleteChat(activeChat._id),
+              },
+            ]}
+          />
         )}
       </Typography>
-      {profileMenu && (
-        <MenuButton
-          icon={<AccountCircle />}
-          menuList={[{ menuItem: 'Edit Profile' }, { menuItem: 'Logout' }]}
+      {activeUser && (
+        <UserMenu
+          activeUser={activeUser}
+          editUser={editUser}
+          logoutBtn={logoutBtn}
         />
       )}
     </Toolbar>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
@@ -10,13 +11,29 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: `64px 0 90px`,
     overflow: `hidden`,
+    alignItems: `center`,
+    justifyContent: `center`,
   },
 });
-const Chat = ({ classes, messages }) => (
+const Chat = ({
+  classes,
+  messages,
+  activeChat,
+  activeUser,
+  joinChat,
+  sendMessage,
+}) => (
   <main className={classes.content}>
-    <MessageList messages={messages} />
-    <MessageInput />
+    <MessageList messages={messages} activeUser={activeUser} />
+    {activeChat && (
+      <MessageInput
+        sendMessage={content => sendMessage(activeChat._id, content)}
+        showJoinButton={!activeUser.isChatMember}
+        onJoinButtonClick={() => joinChat(activeChat._id)}
+        activeUser={activeUser}
+      />
+    )}
   </main>
 );
 
-export default withStyles(styles)(Chat);
+export default withRouter(withStyles(styles)(Chat));

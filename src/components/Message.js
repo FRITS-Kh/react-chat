@@ -1,10 +1,14 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import { deepPurple } from 'material-ui/colors';
+import { withStyles } from '@material-ui/core/styles';
+import { deepPurple } from '@material-ui/core/colors';
 import classNames from 'classnames';
+import moment from 'moment';
 import Avatar from './Avatar';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
+import senderName from '../utils/sender-name';
+import randomColor from '../utils/color-from';
 
 const styles = theme => ({
   MessageItem: {
@@ -25,10 +29,44 @@ const styles = theme => ({
     backgroundColor: deepPurple[50],
     marginRight: theme.spacing.unit * 2,
   },
+  statusMessage: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  statusMessageUser: {
+    display: 'inline',
+  },
 });
 
-const Message = ({ classes, sender, content }) => {
-  const isMessageFromMe = sender === 'me';
+const Message = ({
+  classes,
+  content,
+  sender,
+  activeUser,
+  createdAt,
+  statusMessage,
+}) => {
+  const isMessageFromMe = sender._id === activeUser._id;
+  const displayedName = senderName(sender);
+  if (statusMessage) {
+    return (
+      <div className={classes.MessageItem}>
+        <Typography className={classes.statusMessage}>
+          <Typography
+            variant="caption"
+            style={{ color: randomColor(sender._id) }}
+            className={classes.statusMessageUser}
+          >
+            {displayedName}
+          </Typography>
+          {content}
+          <Typography variant="caption" component="span">
+            {moment(createdAt).fromNow()}
+          </Typography>
+        </Typography>
+      </div>
+    );
+  }
   return (
     <div
       className={classNames(
@@ -36,17 +74,22 @@ const Message = ({ classes, sender, content }) => {
         isMessageFromMe && classes.MessageItemMe,
       )}
     >
-      <Avatar name={sender} />
+      <Avatar colorFrom={sender._id} name={displayedName} />
       <Paper
         className={classNames(
           classes.MessageText,
           isMessageFromMe && classes.MessageTextMe,
         )}
       >
-        <Typography variant="caption">{sender}</Typography>
+        <Typography
+          variant="caption"
+          style={{ color: randomColor(sender._id) }}
+        >
+          {displayedName}
+        </Typography>
         <Typography variant="body1">{content}</Typography>
-        <Typography variant="caption" component="span">
-          one day ago
+        <Typography variant="caption" className={classes.time}>
+          {moment(createdAt).fromNow()}
         </Typography>
       </Paper>
     </div>
