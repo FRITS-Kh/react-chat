@@ -9,9 +9,14 @@ import {
   leaveChat,
   createChat,
   deleteChat,
-  sendMessage,
 } from '../actions/chats';
 import { editUser } from '../actions/users';
+import {
+  sendMessage,
+  mountChat,
+  unmountChat,
+  socketsConnect,
+} from '../actions/sockets';
 import * as fromChats from '../reducers/chats';
 import * as fromState from '../reducers';
 import ChatPage from '../components/ChatPage';
@@ -46,10 +51,17 @@ const mapDispatchToProps = dispatch =>
       leaveChat,
       createChat,
       deleteChat,
-      sendMessage,
       editUser,
+
+      sendMessage,
+      mountChat,
+      unmountChat,
+      socketsConnect,
     },
     dispatch,
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ChatPage);

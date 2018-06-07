@@ -17,7 +17,7 @@ export function socketsConnect() {
       type: types.SOCKETS_CONNECTION_REQUEST,
     });
 
-    socket = SocketIOClient('ws://localhost:3000/', {
+    socket = SocketIOClient('ws://localhost:8000/', {
       query: { token },
     });
 
