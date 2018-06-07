@@ -105,7 +105,7 @@ export function joinChat(chatId) {
           payload: { chat },
         });
         dispatch(redirect(`/chat/${chat._id}`));
-        dispatch(fetchChat(chatId));
+        dispatch(fetchChat(chatId)); // For showing join message
         return chat;
       })
       .catch(reason =>
