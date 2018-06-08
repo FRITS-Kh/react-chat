@@ -12,7 +12,14 @@ let socket = null;
 
 export function socketsConnect() {
   return (dispatch, getState) => {
-    const { token } = getState().auth;
+    const state = getState();
+    const { isFetching } = state.services;
+    const { token } = state.auth;
+
+    if (isFetching.sockets) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: types.SOCKETS_CONNECTION_REQUEST,
     });
@@ -49,7 +56,7 @@ export function socketsConnect() {
     socket.on('new-chat', ({ chat }) => {
       dispatch({
         type: types.RECEIVE_NEW_CHAT,
-        payload: chat,
+        payload: { chat },
       });
     });
 
@@ -57,7 +64,7 @@ export function socketsConnect() {
       const { activeId } = getState().chats;
       dispatch({
         type: types.RECEIVE_DELETED_CHAT,
-        payload: chat,
+        payload: { chat },
       });
       if (activeId === chat._id) {
         dispatch(redirect('/chat'));
@@ -108,7 +115,7 @@ export function mountChat(chatId) {
 }
 
 export function unmountChat(chatId) {
-  return (dispatch, getState) => {
+  return dispatch => {
     if (!socket) {
       dispatch(missingSocketConnection());
     }
