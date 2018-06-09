@@ -5,6 +5,8 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
 
+import ErrorMessage from './ErrorMessage';
+
 const styles = theme => ({
   root: {
     height: `100vh`,
@@ -81,6 +83,7 @@ class ChatPage extends React.Component {
       sendMessage,
       messages,
       editUser,
+      error,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -103,6 +106,7 @@ class ChatPage extends React.Component {
           sendMessage={sendMessage}
           joinChat={joinChat}
         />
+        <ErrorMessage error={error} />
       </div>
     );
   }

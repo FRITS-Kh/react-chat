@@ -10,6 +10,8 @@ import Header from './Header';
 import LoginForm from './LoginForm';
 import CreateUserForm from './CreateUserForm';
 
+import ErrorMessage from './ErrorMessage';
+
 const styles = theme => ({
   welcomePageWrap: {
     display: 'flex',
@@ -47,7 +49,7 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, signup, login, isAuthenticated } = this.props;
+    const { classes, signup, login, isAuthenticated, error } = this.props;
     const { currentTab } = this.state;
     if (isAuthenticated) {
       return <Redirect to="/chat" />;
@@ -79,6 +81,7 @@ class WelcomePage extends React.Component {
             </div>
           </Paper>
         </div>
+        <ErrorMessage error={error} />
       </div>
     );
   }
