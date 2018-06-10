@@ -19,12 +19,13 @@ class MenuButton extends React.Component {
   };
 
   render() {
-    const { menuList, icon } = this.props;
+    const { menuList, icon, disabled } = this.props;
     const { anchorEl } = this.state;
     const open = this.props.rulesForCloseModal ? false : Boolean(anchorEl);
     return (
       <React.Fragment>
         <IconButton
+          disabled={disabled}
           aria-owns={open ? 'menu-appbar' : null}
           aria-haspopup="true"
           onClick={this.handleMenu}

@@ -84,10 +84,12 @@ class ChatPage extends React.Component {
       messages,
       editUser,
       error,
+      isConnected,
     } = this.props;
     return (
       <div className={classes.root}>
         <Header
+          isConnected={isConnected}
           position="absolute"
           title="DogeCodes React Chat"
           leftBar={true}
@@ -98,8 +100,13 @@ class ChatPage extends React.Component {
           deleteChat={deleteChat}
           editUser={editUser}
         />
-        <Sidebar chats={chats} createChat={createChat} />
+        <Sidebar
+          isConnected={isConnected}
+          chats={chats}
+          createChat={createChat}
+        />
         <Chat
+          isConnected={isConnected}
           messages={messages}
           activeChat={chats.active}
           activeUser={activeUser}

@@ -29,6 +29,7 @@ const Header = ({
   leaveChat,
   deleteChat,
   editUser,
+  isConnected,
 }) => (
   <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
@@ -44,6 +45,7 @@ const Header = ({
         {activeChat ? activeChat.title : title}
         {activeUser.isChatMember && (
           <MenuButton
+            disabled={!isConnected}
             icon={<MoreVert />}
             menuList={[
               activeUser.isMember && {
@@ -62,6 +64,7 @@ const Header = ({
       </Typography>
       {activeUser && (
         <UserMenu
+          disabled={!isConnected}
           activeUser={activeUser}
           editUser={editUser}
           logoutBtn={logoutBtn}

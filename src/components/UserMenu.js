@@ -38,13 +38,14 @@ class UserMenu extends React.Component {
     this.handleToggleModal();
   };
   render() {
-    const { logoutBtn } = this.props;
+    const { logoutBtn, disabled } = this.props;
     const { open } = this.state;
 
     return (
       <React.Fragment>
         <MenuButton
           icon={<AccountCircle />}
+          disabled={disabled}
           menuList={[
             {
               id: 'Edit Profile',
