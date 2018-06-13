@@ -15,20 +15,20 @@ import ErrorMessage from './ErrorMessage';
 const styles = theme => ({
   welcomePageWrap: {
     display: 'flex',
-    flexWrap: `wrap`,
-    justifyContent: `center`,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     backgroundColor: theme.palette.background.default,
-    height: `100vh`,
-    width: `100%`,
+    height: '100vh',
+    width: '100%',
   },
   welcomePage: {
-    width: `100%`,
+    width: '100%',
   },
   welcomeContent: {
     width: 500,
     position: 'relative',
     minHeight: 200,
-    margin: `24px auto 0`,
+    margin: '24px auto 0',
   },
   tabContent: {
     padding: theme.spacing.unit * 3,
@@ -49,7 +49,9 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, signup, login, isAuthenticated, error } = this.props;
+    const {
+      classes, signup, login, isAuthenticated, error,
+    } = this.props;
     const { currentTab } = this.state;
     if (isAuthenticated) {
       return <Redirect to="/chat" />;
@@ -57,11 +59,7 @@ class WelcomePage extends React.Component {
     return (
       <div className={classes.welcomePageWrap}>
         <div className={classes.welcomePage}>
-          <Header
-            position="static"
-            title="DogeCodes React Chat"
-            activeUser={false}
-          />
+          <Header position="static" title="DogeCodes React Chat" activeUser={false} />
           <Paper className={classes.welcomeContent}>
             <AppBar position="static" color="default">
               <Tabs

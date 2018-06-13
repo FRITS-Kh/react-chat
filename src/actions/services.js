@@ -1,8 +1,9 @@
 import * as types from '../constants/services';
 import history from '../utils/history';
 
+// eslint-disable-next-line
 export function redirect(to) {
-  return dispatch => {
+  return (dispatch) => {
     history.push(to);
     dispatch({
       type: types.REDIRECT,

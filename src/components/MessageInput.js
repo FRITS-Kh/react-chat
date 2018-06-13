@@ -13,7 +13,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
   },
   messageInput: {
-    width: `100%`,
+    width: '100%',
   },
 });
 
@@ -22,13 +22,13 @@ class MessageInput extends React.Component {
     value: '',
   };
 
-  handleValueChange = event => {
+  handleValueChange = (event) => {
     this.setState({
       value: event.target.value,
     });
   };
 
-  handleKeyPress = event => {
+  handleKeyPress = (event) => {
     const { value } = this.state;
 
     if (event.key === 'Enter' && value) {
@@ -38,7 +38,9 @@ class MessageInput extends React.Component {
   };
 
   render() {
-    const { classes, showJoinButton, onJoinButtonClick, disabled } = this.props;
+    const {
+      classes, showJoinButton, onJoinButtonClick, disabled,
+    } = this.props;
 
     return (
       <Paper className={classes.messageInputWrap} elevation={6}>

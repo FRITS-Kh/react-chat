@@ -1,11 +1,11 @@
 import React from 'react';
-import MenuButton from './MenuButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Popup from './Popup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import MenuButton from './MenuButton';
+import Popup from './Popup';
 
 class UserMenu extends React.Component {
   state = {
@@ -24,7 +24,7 @@ class UserMenu extends React.Component {
   handleToggleModal = () => {
     this.setState({ open: !this.state.open });
   };
-  handleChangeInput = event => {
+  handleChangeInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
@@ -56,11 +56,7 @@ class UserMenu extends React.Component {
           ]}
           rulesForCloseModal={open}
         />
-        <Popup
-          handleToggleModal={this.handleToggleModal}
-          isOpen={open}
-          popupTitle="Edit profile"
-        >
+        <Popup handleToggleModal={this.handleToggleModal} isOpen={open} popupTitle="Edit profile">
           <DialogContent>
             <TextField
               required

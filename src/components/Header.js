@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,7 +11,7 @@ import UserMenu from './UserMenu';
 
 const styles = theme => ({
   appBar: {
-    width: `calc(100% - 320px)`,
+    width: 'calc(100% - 320px)',
   },
   title: {
     flex: 1,
@@ -33,15 +34,8 @@ const Header = ({
 }) => (
   <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
-      {activeChat && (
-        <Avatar name={activeChat.title} colorFrom={activeChat._id} />
-      )}
-      <Typography
-        className={leftBar && classes.title}
-        variant="title"
-        color="inherit"
-        noWrap
-      >
+      {activeChat && <Avatar name={activeChat.title} colorFrom={activeChat._id} />}
+      <Typography className={leftBar && classes.title} variant="title" color="inherit" noWrap>
         {activeChat ? activeChat.title : title}
         {activeUser.isChatMember && (
           <MenuButton

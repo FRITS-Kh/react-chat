@@ -9,10 +9,10 @@ const styles = theme => ({
     display: 'flex',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: `64px 0 90px`,
-    overflow: `hidden`,
-    alignItems: `center`,
-    justifyContent: `center`,
+    padding: '64px 0 90px',
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 const Chat = ({
@@ -31,6 +31,7 @@ const Chat = ({
         disabled={!isConnected}
         sendMessage={sendMessage}
         showJoinButton={!activeUser.isChatMember}
+        // eslint-disable-next-line
         onJoinButtonClick={() => joinChat(activeChat._id)}
         activeUser={activeUser}
       />

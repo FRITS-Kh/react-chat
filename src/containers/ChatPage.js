@@ -11,17 +11,12 @@ import {
   deleteChat,
 } from '../actions/chats';
 import { editUser } from '../actions/users';
-import {
-  sendMessage,
-  mountChat,
-  unmountChat,
-  socketsConnect,
-} from '../actions/sockets';
+import { sendMessage, mountChat, unmountChat, socketsConnect } from '../actions/sockets';
 import * as fromChats from '../reducers/chats';
 import * as fromState from '../reducers';
 import ChatPage from '../components/ChatPage';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const activeChat = fromChats.getById(state.chats, state.chats.activeId);
   return {
     isAuthenticated: state.auth.isAuthenticated,

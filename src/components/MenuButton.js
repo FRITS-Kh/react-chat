@@ -7,13 +7,13 @@ class MenuButton extends React.Component {
     anchorEl: null,
   };
 
-  handleMenu = event => {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-  handleCustomClick = e => {
+  handleCustomClick = (e) => {
     this.handleClose();
     return e();
   };
@@ -47,20 +47,19 @@ class MenuButton extends React.Component {
           open={open}
           onClose={this.handleClose}
         >
-          {menuList.map(menuItem => {
-            return menuItem !== false ? (
-              <MenuItem
-                key={menuItem.id}
-                onClick={
-                  menuItem.action
-                    ? () => this.handleCustomClick(menuItem.action)
-                    : this.handleClose
-                }
-              >
-                {menuItem.menuItem}
-              </MenuItem>
-            ) : null;
-          })}
+          {menuList.map(menuItem =>
+              (menuItem !== false ? (
+                <MenuItem
+                  key={menuItem.id}
+                  onClick={
+                    menuItem.action
+                      ? () => this.handleCustomClick(menuItem.action)
+                      : this.handleClose
+                  }
+                >
+                  {menuItem.menuItem}
+                </MenuItem>
+              ) : null))}
         </Menu>
       </React.Fragment>
     );

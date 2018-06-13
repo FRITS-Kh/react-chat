@@ -20,7 +20,7 @@ class LoginForm extends React.Component {
       isValid: true,
     },
   };
-  handleChangeInput = event => {
+  handleChangeInput = (event) => {
     event.persist();
     const { name, value } = event.target;
     this.setState(prevState => ({
@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
       },
     }));
   };
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
 
@@ -68,13 +68,7 @@ class LoginForm extends React.Component {
           autoComplete="current-password"
           fullWidth
         />
-        <Button
-          variant="raised"
-          type="submit"
-          color="primary"
-          className={classes.button}
-          fullWidth
-        >
+        <Button variant="raised" type="submit" color="primary" className={classes.button} fullWidth>
           Login
         </Button>
       </form>

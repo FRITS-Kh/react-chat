@@ -3,8 +3,8 @@ import fetch from 'isomorphic-fetch';
 export default function callApi(endpoint, token, options, payload) {
   const authHeaders = token
     ? {
-        Authorization: `Bearer ${token}`,
-      }
+      Authorization: `Bearer ${token}`,
+    }
     : {};
   return fetch(`http://localhost:8000/v1/${endpoint}`, {
     method: 'GET',
@@ -17,7 +17,7 @@ export default function callApi(endpoint, token, options, payload) {
     ...options,
   })
     .then(response => response.json())
-    .then(json => {
+    .then((json) => {
       if (json.success) {
         return json;
       }

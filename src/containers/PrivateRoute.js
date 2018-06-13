@@ -16,7 +16,7 @@ class PrivateRoute extends React.Component {
       <Route
         {...rest}
         render={props =>
-          isAuthenticated ? (
+          (isAuthenticated ? (
             <Component {...props} />
           ) : (
             <Redirect
@@ -25,7 +25,7 @@ class PrivateRoute extends React.Component {
                 state: { from: props.location },
               }}
             />
-          )
+          ))
         }
       />
     );
@@ -42,6 +42,7 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch,
   );
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(PrivateRoute),
-);
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PrivateRoute));

@@ -36,7 +36,7 @@ class CreateUserForm extends React.Component {
 
     return isValid;
   };
-  handleChangeInput = event => {
+  handleChangeInput = (event) => {
     event.persist();
     const { name, value } = event.target;
     this.setState(prevState => ({
@@ -46,7 +46,7 @@ class CreateUserForm extends React.Component {
       },
     }));
   };
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     if (!this.validate()) {
       return;
@@ -100,13 +100,7 @@ class CreateUserForm extends React.Component {
           autoComplete="new-password"
           fullWidth
         />
-        <Button
-          variant="raised"
-          type="submit"
-          color="primary"
-          className={classes.button}
-          fullWidth
-        >
+        <Button variant="raised" type="submit" color="primary" className={classes.button} fullWidth>
           Signup
         </Button>
       </form>

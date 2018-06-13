@@ -7,9 +7,9 @@ import Chat from './Chat';
 
 import ErrorMessage from './ErrorMessage';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    height: `100vh`,
+    height: '100vh',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -92,7 +92,7 @@ class ChatPage extends React.Component {
           isConnected={isConnected}
           position="absolute"
           title="DogeCodes React Chat"
-          leftBar={true}
+          leftBar
           logoutBtn={logout}
           activeUser={activeUser}
           activeChat={chats.active}
@@ -100,11 +100,7 @@ class ChatPage extends React.Component {
           deleteChat={deleteChat}
           editUser={editUser}
         />
-        <Sidebar
-          isConnected={isConnected}
-          chats={chats}
-          createChat={createChat}
-        />
+        <Sidebar isConnected={isConnected} chats={chats} createChat={createChat} />
         <Chat
           isConnected={isConnected}
           messages={messages}

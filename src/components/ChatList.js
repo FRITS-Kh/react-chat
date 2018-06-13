@@ -1,13 +1,14 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import ChatListItem from './ChatListItem';
 
-const styles = theme => ({
+const styles = () => ({
   chatList: {
-    height: `calc(100% - 56px)`,
-    overflowY: `auto`,
+    height: 'calc(100% - 56px)',
+    overflowY: 'auto',
   },
   emptyChatList: {
     textAlign: 'center',
@@ -19,7 +20,9 @@ const styles = theme => ({
   },
 });
 
-const ChatList = ({ classes, chats, activeChat, disabled }) => (
+const ChatList = ({
+  classes, chats, activeChat, disabled,
+}) => (
   <List className={classes.chatList}>
     {chats && chats.length ? (
       chats.map(chat => (

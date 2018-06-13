@@ -8,15 +8,15 @@ class ErrorMessage extends React.Component {
     open: false,
   };
 
-  handleCloseSnackbar = () => {
-    this.setState({ open: false });
-  };
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({ open: true });
     }
   }
+
+  handleCloseSnackbar = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     const { error } = this.props;

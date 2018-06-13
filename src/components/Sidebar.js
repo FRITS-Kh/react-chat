@@ -2,17 +2,17 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import Search from './Search';
 import ChatList from './ChatList';
 import BottomNav from './BottomNav';
 import AddButton from './AddButton';
 import Popup from './Popup';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 
-const styles = theme => ({
+const styles = () => ({
   sidebar: {
     position: 'relative',
     width: 320,
@@ -33,7 +33,7 @@ class Sidebar extends React.Component {
   handleToggleModal = () => {
     this.setState({ open: !this.state.open });
   };
-  handleChangeInput = event => {
+  handleChangeInput = (event) => {
     this.setState({
       title: {
         value: event.target.value,
@@ -41,7 +41,7 @@ class Sidebar extends React.Component {
       },
     });
   };
-  handleClickCreate = event => {
+  handleClickCreate = (event) => {
     event.preventDefault();
     const { title } = this.state;
 
@@ -65,29 +65,26 @@ class Sidebar extends React.Component {
     });
   };
 
-  handleSearchChange = event => {
+  handleSearchChange = (event) => {
     this.setState({
       searchValue: event.target.value,
     });
   };
-  filterChats = chats => {
+  filterChats = (chats) => {
     const { searchValue } = this.state;
 
     return chats
-      .filter(chat =>
-        chat.title.toLowerCase().includes(searchValue.toLowerCase()),
-      )
-      .sort(
-        (one, two) =>
-          one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1,
-      );
+      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
+      .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
   };
   handleTabChange = (event, activeTab) => {
     this.setState({ activeTab });
   };
   render() {
     const { classes, chats, isConnected } = this.props;
-    const { open, title, searchValue, activeTab } = this.state;
+    const {
+      open, title, searchValue, activeTab,
+    } = this.state;
 
     return (
       <Drawer

@@ -6,11 +6,11 @@ const styles = theme => ({
   searchInputWrap: {
     ...theme.mixins.toolbar,
     padding: `0 ${theme.spacing.unit * 3}px`,
-    display: `flex`,
-    alignItems: `center`,
+    display: 'flex',
+    alignItems: 'center',
   },
   searchInput: {
-    width: `100%`,
+    width: '100%',
   },
 });
 

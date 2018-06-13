@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,7 +8,7 @@ import Message from './Message';
 
 const styles = theme => ({
   messageList: {
-    overflowY: `auto`,
+    overflowY: 'auto',
     width: '100%',
     height: `calc(100% - ${theme.spacing.unit * 3}px)`,
     paddingTop: theme.spacing.unit * 3,
@@ -35,7 +36,9 @@ class MessageList extends React.Component {
   }
 
   render() {
-    const { classes, messages, match, activeUser } = this.props;
+    const {
+      classes, messages, match, activeUser,
+    } = this.props;
     // If there's no active chat, then show a tip
     if (!match.params.chatId) {
       return (
@@ -54,8 +57,8 @@ class MessageList extends React.Component {
     }
     return messages && messages.length ? (
       <div className={classes.messageList} ref={this.chatHistoryRef}>
-        {messages.map((message, index) => (
-          <Message key={index} activeUser={activeUser} {...message} />
+        {messages.map(message => (
+          <Message key={message._id} activeUser={activeUser} {...message} />
         ))}
       </div>
     ) : (

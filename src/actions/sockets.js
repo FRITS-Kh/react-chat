@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import SocketIOClient from 'socket.io-client';
 import * as types from '../constants/sockets';
 import { redirect } from './services';
@@ -35,7 +36,7 @@ export function socketsConnect() {
       });
     });
 
-    socket.on('error', error => {
+    socket.on('error', (error) => {
       dispatch({
         type: types.SOCKETS_CONNECTION_FAILURE,
         payload: new Error(`Connection: ${error}`),
@@ -49,7 +50,7 @@ export function socketsConnect() {
       });
     });
 
-    socket.on('new-message', message => {
+    socket.on('new-message', (message) => {
       dispatch({
         type: types.RECEIVE_MESSAGE,
         payload: message,
@@ -73,6 +74,8 @@ export function socketsConnect() {
         dispatch(redirect('/chat'));
       }
     });
+
+    return Promise.resolve();
   };
 }
 
@@ -104,7 +107,7 @@ export function sendMessage(content) {
 }
 
 export function mountChat(chatId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(missingSocketConnection());
     }
@@ -118,7 +121,7 @@ export function mountChat(chatId) {
 }
 
 export function unmountChat(chatId) {
-  return dispatch => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(missingSocketConnection());
     }
