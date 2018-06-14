@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -23,5 +24,11 @@ const AddButton = ({ classes, btnAction, disabled }) => (
     <AddIcon />
   </Button>
 );
+
+AddButton.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  btnAction: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
 
 export default withStyles(styles)(AddButton);

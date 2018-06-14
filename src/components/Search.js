@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 
@@ -26,5 +27,10 @@ const Search = ({ classes, searchAction }) => (
     />
   </div>
 );
+
+Search.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  searchAction: PropTypes.func.isRequired,
+};
 
 export default withStyles(styles)(Search);

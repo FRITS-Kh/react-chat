@@ -1,8 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import { Menu, MenuItem } from '@material-ui/core';
 
 class MenuButton extends React.Component {
+  static propTypes = {
+    menuList: PropTypes.arrayOf(PropTypes.oneOfType([
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        menuItem: PropTypes.string.isRequired,
+        action: PropTypes.func.isRequired,
+      }),
+      PropTypes.bool,
+    ])).isRequired,
+    icon: PropTypes.element.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    rulesForCloseModal: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    rulesForCloseModal: false,
+  };
+
   state = {
     anchorEl: null,
   };

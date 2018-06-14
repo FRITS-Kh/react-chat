@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -10,5 +11,12 @@ const Popup = ({
     {children}
   </Dialog>
 );
+
+Popup.propTypes = {
+  handleToggleModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  popupTitle: PropTypes.string.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
 
 export default Popup;
