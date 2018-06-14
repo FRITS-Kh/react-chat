@@ -7,6 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = theme => ({
   addButton: {
     position: 'absolute',
+    // eslint-disable-next-line
     bottom: theme.spacing.unit * 3 + 48,
     right: theme.spacing.unit * 3,
   },
