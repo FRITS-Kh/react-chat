@@ -5,6 +5,7 @@ import WelcomePage from '../components/WelcomePage';
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
+  error: state.services.errors.auth,
 });
 
 const mapDispatchToProps = dispatch =>
@@ -17,4 +18,7 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(WelcomePage);

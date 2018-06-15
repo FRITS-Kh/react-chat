@@ -22,12 +22,14 @@ const Chat = ({
   activeUser,
   joinChat,
   sendMessage,
+  isConnected,
 }) => (
   <main className={classes.content}>
     <MessageList messages={messages} activeUser={activeUser} />
     {activeChat && (
       <MessageInput
-        sendMessage={content => sendMessage(activeChat._id, content)}
+        disabled={!isConnected}
+        sendMessage={sendMessage}
         showJoinButton={!activeUser.isChatMember}
         onJoinButtonClick={() => joinChat(activeChat._id)}
         activeUser={activeUser}

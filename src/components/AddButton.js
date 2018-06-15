@@ -11,8 +11,9 @@ const styles = theme => ({
   },
 });
 
-const AddButton = ({ classes, btnAction }) => (
+const AddButton = ({ classes, btnAction, disabled }) => (
   <Button
+    disabled={disabled}
     variant="fab"
     color="primary"
     aria-label="add"
