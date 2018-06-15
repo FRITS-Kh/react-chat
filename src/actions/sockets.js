@@ -34,6 +34,11 @@ export function socketsConnect() {
       dispatch({
         type: types.SOCKETS_CONNECTION_SUCCESS,
       });
+      const { activeId } = getState().chats;
+
+      if (activeId) {
+        dispatch(mountChat(activeId));
+      }
     });
 
     socket.on('error', (error) => {
@@ -84,7 +89,7 @@ export function sendMessage(content) {
     const { activeId } = getState().chats;
 
     if (!socket) {
-      dispatch(missingSocketConnection());
+      return dispatch(missingSocketConnection());
     }
 
     socket.emit(
@@ -109,7 +114,7 @@ export function sendMessage(content) {
 export function mountChat(chatId) {
   return (dispatch) => {
     if (!socket) {
-      dispatch(missingSocketConnection());
+      return dispatch(missingSocketConnection());
     }
 
     socket.emit('mount-chat', chatId);
@@ -123,7 +128,7 @@ export function mountChat(chatId) {
 export function unmountChat(chatId) {
   return (dispatch) => {
     if (!socket) {
-      dispatch(missingSocketConnection());
+      return dispatch(missingSocketConnection());
     }
 
     socket.emit('unmount-chat', chatId);
