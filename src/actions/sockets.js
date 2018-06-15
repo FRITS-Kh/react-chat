@@ -12,6 +12,36 @@ export function missingSocketConnection() {
 
 let socket = null;
 
+export function mountChat(chatId) {
+  return (dispatch) => {
+    if (!socket) {
+      return dispatch(missingSocketConnection());
+    }
+
+    socket.emit('mount-chat', chatId);
+    dispatch({
+      type: types.MOUNT_CHAT,
+      payload: { chatId },
+    });
+    return Promise.resolve();
+  };
+}
+
+export function unmountChat(chatId) {
+  return (dispatch) => {
+    if (!socket) {
+      return dispatch(missingSocketConnection());
+    }
+
+    socket.emit('unmount-chat', chatId);
+    dispatch({
+      type: types.UNMOUNT_CHAT,
+      payload: { chatId },
+    });
+    return Promise.resolve();
+  };
+}
+
 export function socketsConnect() {
   return (dispatch, getState) => {
     const state = getState();
@@ -108,33 +138,6 @@ export function sendMessage(content) {
         });
       },
     );
-  };
-}
-
-export function mountChat(chatId) {
-  return (dispatch) => {
-    if (!socket) {
-      return dispatch(missingSocketConnection());
-    }
-
-    socket.emit('mount-chat', chatId);
-    dispatch({
-      type: types.MOUNT_CHAT,
-      payload: { chatId },
-    });
-  };
-}
-
-export function unmountChat(chatId) {
-  return (dispatch) => {
-    if (!socket) {
-      return dispatch(missingSocketConnection());
-    }
-
-    socket.emit('unmount-chat', chatId);
-    dispatch({
-      type: types.UNMOUNT_CHAT,
-      payload: { chatId },
-    });
+    return Promise.resolve();
   };
 }
