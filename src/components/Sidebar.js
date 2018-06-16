@@ -42,6 +42,22 @@ class Sidebar extends React.Component {
     activeTab: 0,
   };
 
+  getChats = () => {
+    const { chats } = this.props;
+    const { activeTab, searchValue } = this.state;
+    return this.filterAndSortChats(activeTab === 0 ? chats.my : chats.all, searchValue);
+  };
+
+  filterAndSortChats = (chats, filter) => {
+    const sortFn = (a, b) =>
+      ((a.title || '').toLowerCase() <= (b.title || '').toLowerCase() ? -1 : 1);
+    const chatsSort = chats.sort(sortFn);
+    if (!filter) {
+      return chatsSort;
+    }
+    return chatsSort.filter(({ title = '' }) => title.toLowerCase().includes(filter.toLowerCase()));
+  };
+
   handleToggleModal = () => {
     this.setState({ open: !this.state.open });
   };
@@ -82,13 +98,7 @@ class Sidebar extends React.Component {
       searchValue: event.target.value,
     });
   };
-  filterChats = (chats) => {
-    const { searchValue } = this.state;
 
-    return chats
-      .filter(chat => chat.title && chat.title.toLowerCase().includes(searchValue.toLowerCase()))
-      .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
-  };
   handleTabChange = (event, activeTab) => {
     this.setState({ activeTab });
   };
@@ -97,6 +107,7 @@ class Sidebar extends React.Component {
     const {
       open, title, searchValue, activeTab,
     } = this.state;
+    const chatsData = this.getChats();
 
     return (
       <Drawer
@@ -107,11 +118,7 @@ class Sidebar extends React.Component {
       >
         <Search value={searchValue} searchAction={this.handleSearchChange} />
         <Divider />
-        <ChatList
-          disabled={!isConnected}
-          chats={this.filterChats(activeTab === 0 ? chats.my : chats.all)}
-          activeChat={chats.active}
-        />
+        <ChatList disabled={!isConnected} chats={chatsData} activeChat={chats.active} />
         <AddButton disabled={!isConnected} btnAction={this.handleToggleModal} />
         <Popup
           handleToggleModal={this.handleToggleModal}
