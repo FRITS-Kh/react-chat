@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
@@ -13,22 +14,30 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
   },
   messageInput: {
-    width: `100%`,
+    width: '100%',
   },
 });
 
 class MessageInput extends React.Component {
+  static propTypes = {
+    sendMessage: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    showJoinButton: PropTypes.bool.isRequired,
+    onJoinButtonClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     value: '',
   };
 
-  handleValueChange = event => {
+  handleValueChange = (event) => {
     this.setState({
       value: event.target.value,
     });
   };
 
-  handleKeyPress = event => {
+  handleKeyPress = (event) => {
     const { value } = this.state;
 
     if (event.key === 'Enter' && value) {
@@ -38,7 +47,9 @@ class MessageInput extends React.Component {
   };
 
   render() {
-    const { classes, showJoinButton, onJoinButtonClick, disabled } = this.props;
+    const {
+      classes, showJoinButton, onJoinButtonClick, disabled,
+    } = this.props;
 
     return (
       <Paper className={classes.messageInputWrap} elevation={6}>

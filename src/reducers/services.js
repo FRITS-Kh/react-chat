@@ -6,7 +6,7 @@ const initialState = {
     signup: false,
     login: false,
     logout: false,
-    receiveAuth: false, //doesn't use
+    receiveAuth: false, // doesn't use
     allChats: false,
     myChats: false,
     chat: false,

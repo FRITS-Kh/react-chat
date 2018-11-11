@@ -1,4 +1,6 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +12,7 @@ import UserMenu from './UserMenu';
 
 const styles = theme => ({
   appBar: {
-    width: `calc(100% - 320px)`,
+    width: 'calc(100% - 320px)',
   },
   title: {
     flex: 1,
@@ -33,15 +35,8 @@ const Header = ({
 }) => (
   <AppBar position={position} className={leftBar && classes.appBar}>
     <Toolbar>
-      {activeChat && (
-        <Avatar name={activeChat.title} colorFrom={activeChat._id} />
-      )}
-      <Typography
-        className={leftBar && classes.title}
-        variant="title"
-        color="inherit"
-        noWrap
-      >
+      {activeChat && <Avatar name={activeChat.title} colorFrom={activeChat._id} />}
+      <Typography className={leftBar && classes.title} variant="title" color="inherit" noWrap>
         {activeChat ? activeChat.title : title}
         {activeUser.isChatMember && (
           <MenuButton
@@ -73,4 +68,32 @@ const Header = ({
     </Toolbar>
   </AppBar>
 );
+
+Header.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  position: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  leftBar: PropTypes.bool.isRequired,
+  logoutBtn: PropTypes.func.isRequired,
+  activeUser: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+    isMember: PropTypes.bool.isRequired,
+    isCreator: PropTypes.bool.isRequired,
+    isChatMember: PropTypes.bool.isRequired,
+  }).isRequired,
+  activeChat: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
+  leaveChat: PropTypes.func.isRequired,
+  deleteChat: PropTypes.func.isRequired,
+  editUser: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
+};
+
+Header.defaultProps = {
+  activeChat: null,
+};
 export default withStyles(styles)(Header);

@@ -1,18 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 import Search from './Search';
 import ChatList from './ChatList';
 import BottomNav from './BottomNav';
 import AddButton from './AddButton';
 import Popup from './Popup';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 
-const styles = theme => ({
+const styles = () => ({
   sidebar: {
     position: 'relative',
     width: 320,
@@ -20,6 +21,17 @@ const styles = theme => ({
 });
 
 class Sidebar extends React.Component {
+  static propTypes = {
+    createChat: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.array.isRequired,
+      all: PropTypes.array.isRequired,
+    }).isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+
   state = {
     open: false,
     title: {
@@ -30,10 +42,26 @@ class Sidebar extends React.Component {
     activeTab: 0,
   };
 
+  getChats = () => {
+    const { chats } = this.props;
+    const { activeTab, searchValue } = this.state;
+    return this.filterAndSortChats(activeTab === 0 ? chats.my : chats.all, searchValue);
+  };
+
+  filterAndSortChats = (chats, filter) => {
+    const sortFn = (a, b) =>
+      ((a.title || '').toLowerCase() <= (b.title || '').toLowerCase() ? -1 : 1);
+    const chatsSort = chats.sort(sortFn);
+    if (!filter) {
+      return chatsSort;
+    }
+    return chatsSort.filter(({ title = '' }) => title.toLowerCase().includes(filter.toLowerCase()));
+  };
+
   handleToggleModal = () => {
     this.setState({ open: !this.state.open });
   };
-  handleChangeInput = event => {
+  handleChangeInput = (event) => {
     this.setState({
       title: {
         value: event.target.value,
@@ -41,7 +69,7 @@ class Sidebar extends React.Component {
       },
     });
   };
-  handleClickCreate = event => {
+  handleClickCreate = (event) => {
     event.preventDefault();
     const { title } = this.state;
 
@@ -65,29 +93,21 @@ class Sidebar extends React.Component {
     });
   };
 
-  handleSearchChange = event => {
+  handleSearchChange = (event) => {
     this.setState({
       searchValue: event.target.value,
     });
   };
-  filterChats = chats => {
-    const { searchValue } = this.state;
 
-    return chats
-      .filter(chat =>
-        chat.title.toLowerCase().includes(searchValue.toLowerCase()),
-      )
-      .sort(
-        (one, two) =>
-          one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1,
-      );
-  };
   handleTabChange = (event, activeTab) => {
     this.setState({ activeTab });
   };
   render() {
     const { classes, chats, isConnected } = this.props;
-    const { open, title, searchValue, activeTab } = this.state;
+    const {
+      open, title, searchValue, activeTab,
+    } = this.state;
+    const chatsData = this.getChats();
 
     return (
       <Drawer
@@ -98,11 +118,7 @@ class Sidebar extends React.Component {
       >
         <Search value={searchValue} searchAction={this.handleSearchChange} />
         <Divider />
-        <ChatList
-          disabled={!isConnected}
-          chats={this.filterChats(activeTab === 0 ? chats.my : chats.all)}
-          activeChat={chats.active}
-        />
+        <ChatList disabled={!isConnected} chats={chatsData} activeChat={chats.active} />
         <AddButton disabled={!isConnected} btnAction={this.handleToggleModal} />
         <Popup
           handleToggleModal={this.handleToggleModal}
